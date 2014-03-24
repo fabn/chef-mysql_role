@@ -16,3 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# Updated package list if ubuntu
+include_recipe 'apt::default'
+# Opscode MySQL recipe for server
+include_recipe 'mysql::server'
