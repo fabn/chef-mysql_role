@@ -41,4 +41,13 @@ describe 'MySQL Installation' do
 
   end
 
+  context 'Binlog configuration' do
+
+    describe file('/var/log/mysql/mysql-bin.index') do
+      it { should be_file }
+      it { should be_owned_by('mysql') }
+    end
+
+  end
+
 end
