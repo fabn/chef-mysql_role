@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mysql_role
-# Recipe:: default
+# Recipe:: tools
 #
 # Copyright (C) 2014 Fabio Napoleoni
 # 
@@ -17,13 +17,24 @@
 # limitations under the License.
 #
 
-# Updated package list if ubuntu
-include_recipe 'apt::default'
-# Opscode MySQL recipe for server
-include_recipe 'mysql::server'
-# Configure database users using databags
-#include_recipe 'mysql_role::databag_users'
-# Install some utility tools for mysql
-include_recipe 'mysql_role::tools'
-# Shell configuration
-include_recipe 'mysql_role::shell_config'
+# Install the percona-toolkit package
+package 'percona-toolkit' do
+  action :install
+end
+
+# MySQL tools automatically installed
+mysql_tools = %w(
+  https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl
+  http://www.day32.com/MySQL/tuning-primer.sh
+  http://www.day32.com/MySQL/slave_status.sh
+)
+
+mysql_tools.each do |tool|
+  # Install the tool into /usr/local/bin folder
+  remote_file "/usr/local/bin/#{File.basename(tool, '.*')}" do
+    source tool
+    owner 'root'
+    group 'root'
+    mode '0755'
+  end
+end

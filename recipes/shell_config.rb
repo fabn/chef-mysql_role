@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mysql_role
-# Recipe:: default
+# Recipe:: shell_config
 #
 # Copyright (C) 2014 Fabio Napoleoni
 # 
@@ -17,13 +17,13 @@
 # limitations under the License.
 #
 
-# Updated package list if ubuntu
-include_recipe 'apt::default'
-# Opscode MySQL recipe for server
-include_recipe 'mysql::server'
-# Configure database users using databags
-#include_recipe 'mysql_role::databag_users'
-# Install some utility tools for mysql
-include_recipe 'mysql_role::tools'
-# Shell configuration
-include_recipe 'mysql_role::shell_config'
+# Allow passwordless mysql for root and crontab stuff
+file '/root/.my.cnf' do
+  content <<-INI
+[client]
+password=#{node[:mysql][:server_root_password]}
+  INI
+  owner 'root'
+  group 'root'
+  mode '0600'
+end
