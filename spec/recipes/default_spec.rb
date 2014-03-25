@@ -15,8 +15,7 @@ describe 'mysql_role::default' do
     stub_search('mysql_users', 'server:fauxhai.local').and_return([])
   end
 
-  %w(apt::default mysql::server mysql_role::databag_users
-     mysql_role::tools mysql_role::shell_config).each do |recipe|
+  %w(mysql::server mysql_role::databag_users mysql_role::tools mysql_role::shell_config).each do |recipe|
 
     it "should include recipe #{recipe}" do
       should include_recipe(recipe)
