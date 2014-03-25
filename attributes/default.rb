@@ -7,3 +7,5 @@ default[:mysql][:remove_anonymous_users] = true
 default[:mysql][:tunable][:log_bin] = '/var/log/mysql/mysql-bin.log'
 # This is true by default but keep it here just to be sure
 default[:mysql][:tunable][:innodb_file_per_table] = true
+# Databag containing MySQL users
+default[:mysql][:users_databag] = 'mysql_users'

@@ -22,7 +22,7 @@ include_recipe 'apt::default'
 # Opscode MySQL recipe for server
 include_recipe 'mysql::server'
 # Configure database users using databags
-#include_recipe 'mysql_role::databag_users'
+include_recipe 'mysql_role::databag_users'
 # Install some utility tools for mysql
 include_recipe 'mysql_role::tools'
 # Shell configuration

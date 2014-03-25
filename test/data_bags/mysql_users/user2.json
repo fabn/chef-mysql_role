@@ -1,0 +1,9 @@
+{
+    "id": "user2",
+    "server": "default-ubuntu-1204.vagrantup.com",
+    "username": "user2",
+    "password": "*14E65567ABDB5135D0CFD9A70B3032C179A49EE7",
+    "host": "%",
+    "privileges": ["SELECT, INSERT, UPDATE, DELETE"],
+    "database_name": "database_3"
+}
