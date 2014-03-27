@@ -19,7 +19,7 @@ suites:
       - recipe[chef-solo-search]
       - recipe[apt::default]
       # Actual role recipe
-      - recipe[mysql_role::default]
+      - recipe[mysql_role::full]
     attributes:
       mysql:
         server_root_password: rootpass

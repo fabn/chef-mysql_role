@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'mysql_role::default' do
+describe 'mysql_role::full' do
 
   subject do
     ChefSpec::Runner.new do |node|
@@ -15,14 +15,12 @@ describe 'mysql_role::default' do
     stub_search('mysql_users', 'server:fauxhai.local').and_return([])
   end
 
-  %w(mysql::server mysql_role::tools mysql_role::shell_config).each do |recipe|
+  %w(mysql_role::default mysql_role::databag_users).each do |recipe|
 
     it "should include recipe #{recipe}" do
       should include_recipe(recipe)
     end
 
   end
-
-  it { should_not include_recipe ' mysql_role::databag_users' }
 
 end
