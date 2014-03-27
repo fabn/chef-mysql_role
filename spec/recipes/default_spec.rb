@@ -23,6 +23,6 @@ describe 'mysql_role::default' do
 
   end
 
-  it { should_not include_recipe ' mysql_role::databag_users' }
+  it { should_not include_recipe 'mysql_role::databag_users' }
 
 end
