@@ -36,7 +36,10 @@ describe 'MySQL Installation' do
     # 10.0.2.15 is vagrant local address
     describe command('HOME=/root mysql -h 10.0.2.15 -e "SHOW DATABASES"') do
       it { should_not return_exit_status(0) }
-      it { should return_stderr /Access denied for user 'root'@'10.0.2.15'/ }
+    end
+
+    describe command(%q{HOME=/root mysql -e "SELECT User, Host FROM user WHERE User = 'root';" mysql}) do
+      it { should_not return_stdout /%/ }
     end
 
   end
