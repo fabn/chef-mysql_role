@@ -36,7 +36,7 @@
 # }
 
 # Needed to use database commands
-include_recipe 'mysql::ruby'
+include_recipe 'mysql-chef_gem'
 
 # Uses default mysql credentials to create users
 admin_credentials = {

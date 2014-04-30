@@ -15,7 +15,7 @@ describe 'mysql_role::databag_users' do
   end
 
   it 'should install chef gem mysql' do
-    expect(chef_run).to include_recipe 'mysql::ruby'
+    expect(chef_run).to include_recipe 'mysql-chef_gem::default'
   end
 
 end

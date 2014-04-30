@@ -10,3 +10,4 @@ supports 'ubuntu'
 
 depends 'mysql', '3.0.2'
 depends 'database', '~> 1.3.12'
+depends 'mysql-chef_gem'
