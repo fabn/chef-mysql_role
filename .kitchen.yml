@@ -10,6 +10,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
 
 suites:
   - name: default
@@ -21,6 +22,9 @@ suites:
       # Actual role recipe
       - recipe[mysql_role::full]
     attributes:
+      apt:
+        # Force apt to update package cache at compile time
+        compile_time_update: true
       mysql:
         server_root_password: rootpass
         server_debian_password: debpass
