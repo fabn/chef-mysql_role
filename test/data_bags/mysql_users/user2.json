@@ -1,6 +1,6 @@
 {
     "id": "user2",
-    "server": "default-ubuntu-1204.vagrantup.com",
+    "server": "default-ubuntu.vagrantup.com",
     "username": "user2",
     "password": "*14E65567ABDB5135D0CFD9A70B3032C179A49EE7",
     "host": "%",

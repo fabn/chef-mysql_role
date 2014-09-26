@@ -45,8 +45,14 @@ admin_credentials = {
     password: node[:mysql][:server_root_password]
 }
 
+# server fqdn is checked also in node[:set_fqdn] otherwise if hostname recipe/cookbook
+# is included and hostname is changed first execution will fail
+server_fqdn = node[:set_fqdn] || node[:fqdn]
+
+# Log hostname used for search into databags
+Chef::Log.info %Q{Looking for database users registered for host "#{server_fqdn}"}
 # Iterate found users in databag for this host and grant them permissions
-search(node[:mysql][:users_databag], "server:#{node[:fqdn]}").each do |user|
+search(node[:mysql][:users_databag], "server:#{server_fqdn}").each do |user|
   Chef::Log.info("Configuring MySQL user #{user['username']}")
   # User should be created with multiple grants
   if user['databases']

@@ -18,10 +18,13 @@ suites:
     run_list:
       # Needed for integration tests only
       - recipe[chef-solo-search]
+      - recipe[hostname]
       - recipe[apt::default]
       # Actual role recipe
       - recipe[mysql_role::full]
     attributes:
+      # A fixed fqdn name is required for mysql_role::databag_users recipe
+      set_fqdn: default-ubuntu.vagrantup.com
       apt:
         # Force apt to update package cache at compile time
         compile_time_update: true
