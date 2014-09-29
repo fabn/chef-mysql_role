@@ -22,6 +22,11 @@ package 'percona-toolkit' do
   action :install
 end
 
+# Used by tuning-primer
+package 'bc' do
+  action :install
+end
+
 # MySQL tools automatically installed
 mysql_tools = %w(
   https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl

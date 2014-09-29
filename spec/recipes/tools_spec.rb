@@ -14,6 +14,10 @@ describe 'mysql_role::tools' do
     expect(chef_run).to install_package('percona-toolkit')
   end
 
+  it 'should install bc package (required by tuning-primer)' do
+    expect(chef_run).to install_package('bc')
+  end
+
   %w(mysqltuner.pl tuning-primer.sh slave_status.sh).each do |tool|
     it "should install #{tool} tool into /usr/local/bin" do
       tool_binary = File.basename(tool, '.*')
