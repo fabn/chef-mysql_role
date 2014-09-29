@@ -17,6 +17,18 @@
 # limitations under the License.
 #
 
+=begin
+#<
+Main recipe used to install and configure MySQL.
+
+Depends on `apt::default` to update the package cache, then it includes all other recipes but `databag_users`
+#>
+=end
+
+# Force package cache update at compile time
+node.set[:apt][:compile_time_update] = true
+# Force package cache update
+include_recipe 'apt'
 # Opscode MySQL recipe for server
 include_recipe 'mysql::server'
 # Install some utility tools for mysql

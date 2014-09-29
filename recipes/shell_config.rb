@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
+=begin
+#<
+This recipes provides passwordless mysql access for root user. It writes `'/root/.my.cnf'` file (with `0600` permissions)
+to allow root user to access mysql from shell without providing password.
+#>
+=end
+
 # Allow passwordless mysql for root and crontab stuff
 file '/root/.my.cnf' do
   content <<-INI

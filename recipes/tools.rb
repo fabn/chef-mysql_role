@@ -17,6 +17,21 @@
 # limitations under the License.
 #
 
+=begin
+#<
+Installs some useful system tools to interact with MySQL installation. Provided tools are:
+
+* [Percona toolkit](http://www.percona.com/software/percona-toolkit)
+* [mysqltuner](https://raw.githubusercontent.com/major/MySQLTuner-perl/master/mysqltuner.pl)
+* [tuning-primer](https://launchpad.net/mysql-tuning-primer)
+* [slave_status](http://www.day32.com/MySQL/)
+
+Percona toolkit is installed with Ubuntu native package.
+
+The latter three tools are installed from vendored files into `/usr/local/bin` so they are available in `$PATH`.
+#>
+=end
+
 # Install the percona-toolkit package
 package 'percona-toolkit' do
   action :install
