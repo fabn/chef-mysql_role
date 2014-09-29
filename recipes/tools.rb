@@ -27,17 +27,13 @@ package 'bc' do
   action :install
 end
 
-# MySQL tools automatically installed
-mysql_tools = %w(
-  https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl
-  http://www.day32.com/MySQL/tuning-primer.sh
-  http://www.day32.com/MySQL/slave_status.sh
-)
+# MySQL tools automatically installed by this recipe
+mysql_tools = %w(mysqltuner.pl tuning-primer.sh slave_status.sh)
 
 mysql_tools.each do |tool|
   # Install the tool into /usr/local/bin folder
-  remote_file "/usr/local/bin/#{File.basename(tool, '.*')}" do
-    source tool
+  cookbook_file tool do
+    path "/usr/local/bin/#{File.basename(tool, '.*')}"
     owner 'root'
     group 'root'
     mode '0755'

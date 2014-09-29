@@ -19,7 +19,7 @@ RSpec.describe 'mysql_role::tools' do
   %w(mysqltuner.pl tuning-primer.sh slave_status.sh).each do |tool|
     it "should install #{tool} tool into /usr/local/bin" do
       tool_binary = File.basename(tool, '.*')
-      expect(chef_run).to create_remote_file("/usr/local/bin/#{tool_binary}")
+      expect(chef_run).to render_file("/usr/local/bin/#{tool_binary}")
     end
   end
 
