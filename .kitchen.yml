@@ -19,7 +19,6 @@ suites:
       # Needed for integration tests only
       - recipe[chef-solo-search]
       - recipe[hostname]
-      - recipe[apt::default]
       # Actual role recipe
       - recipe[mysql_role::full]
     attributes:
