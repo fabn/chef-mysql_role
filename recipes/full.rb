@@ -17,6 +17,14 @@
 # limitations under the License.
 #
 
+=begin
+#<
+Used to install and configure MySQL and configure users through databags.
+
+Also includes [default recipe](#mysql_roledefault).
+#>
+=end
+
 # Opscode MySQL recipe for server
 include_recipe 'mysql_role::default'
 # Configure database users using databags

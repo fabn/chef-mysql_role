@@ -1,9 +1,7 @@
-require 'spec_helper'
-
-describe 'mysql_role::databag_users' do
+RSpec.describe 'mysql_role::databag_users' do
 
   let(:chef_run) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::Runner.new(log_level: :fatal) do |node|
       node.set[:mysql][:server_root_password] = 'rootpass'
       node.set[:mysql][:server_debian_password] = 'debpass'
       node.set[:mysql][:server_repl_password] = 'replpass'

@@ -10,6 +10,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
 
 suites:
   - name: default
@@ -17,10 +18,15 @@ suites:
     run_list:
       # Needed for integration tests only
       - recipe[chef-solo-search]
-      - recipe[apt::default]
+      - recipe[hostname]
       # Actual role recipe
       - recipe[mysql_role::full]
     attributes:
+      # A fixed fqdn name is required for mysql_role::databag_users recipe
+      set_fqdn: default-ubuntu.vagrantup.com
+      apt:
+        # Force apt to update package cache at compile time
+        compile_time_update: true
       mysql:
         server_root_password: rootpass
         server_debian_password: debpass

@@ -17,22 +17,38 @@
 # limitations under the License.
 #
 
+=begin
+#<
+Installs some useful system tools to interact with MySQL installation. Provided tools are:
+
+* [Percona toolkit](http://www.percona.com/software/percona-toolkit)
+* [mysqltuner](https://raw.githubusercontent.com/major/MySQLTuner-perl/master/mysqltuner.pl)
+* [tuning-primer](https://launchpad.net/mysql-tuning-primer)
+* [slave_status](http://www.day32.com/MySQL/)
+
+Percona toolkit is installed with Ubuntu native package.
+
+The latter three tools are installed from vendored files into `/usr/local/bin` so they are available in `$PATH`.
+#>
+=end
+
 # Install the percona-toolkit package
 package 'percona-toolkit' do
   action :install
 end
 
-# MySQL tools automatically installed
-mysql_tools = %w(
-  https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl
-  http://www.day32.com/MySQL/tuning-primer.sh
-  http://www.day32.com/MySQL/slave_status.sh
-)
+# Used by tuning-primer
+package 'bc' do
+  action :install
+end
+
+# MySQL tools automatically installed by this recipe
+mysql_tools = %w(mysqltuner.pl tuning-primer.sh slave_status.sh)
 
 mysql_tools.each do |tool|
   # Install the tool into /usr/local/bin folder
-  remote_file "/usr/local/bin/#{File.basename(tool, '.*')}" do
-    source tool
+  cookbook_file tool do
+    path "/usr/local/bin/#{File.basename(tool, '.*')}"
     owner 'root'
     group 'root'
     mode '0755'

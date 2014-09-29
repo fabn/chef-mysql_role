@@ -17,23 +17,18 @@
 # limitations under the License.
 #
 
-# Json structure used in databag
-# {
-#    "id": "uniq_id", # not used in recipe but required for databag semantic
-#    "server": "db.example.org", // Single or multiple elements allowed
-#    "server": ["db1.example.org", "db2.example.org"], // if array the user will be created on all matching servers
-#    "username": "db_username", // mandatory parameter
-#    "password": "db_password", // mandatory, plain or hashed password
-#    "host": "%.example.org", // optional, default localhost
-#    "privileges": ["SELECT, UPDATE"], // optional, default :all
-#    "database_name": "db", // optional, default *, i.e. all databases
-#    // if given the previous grants will be given for all of these database and database parameter is ignored
-#    "databases": [
-#        "db1",
-#        "db2",
-#        "db3"
-#    ]
-# }
+=begin
+#<
+The recipe is used to create MySQL users from databag contents.
+
+Users are fetched from a `search` into `node[:mysql][:users_databag]` with the key `server:#{server_fqdn}`
+where `server_fqdn` is computed from `node[:fqdn]`. If cookbook user is using the [hostname](https://github.com/3ofcoins/chef-cookbook-hostname)
+cookbook and he has set `node[:set_fqdn]` to change the hostname it will take precedence on `node[:fqdn]` to
+avoid issues on first run.
+
+See [databag format](#databag_format_for_users) for details on databag content.
+#>
+=end
 
 # Needed to use database commands
 include_recipe 'mysql-chef_gem'
@@ -45,8 +40,14 @@ admin_credentials = {
     password: node[:mysql][:server_root_password]
 }
 
+# server fqdn is checked also in node[:set_fqdn] otherwise if hostname recipe/cookbook
+# is included and hostname is changed first execution will fail
+server_fqdn = node[:set_fqdn] || node[:fqdn]
+
+# Log hostname used for search into databags
+Chef::Log.info %Q{Looking for database users registered for host "#{server_fqdn}"}
 # Iterate found users in databag for this host and grant them permissions
-search(node[:mysql][:users_databag], "server:#{node[:fqdn]}").each do |user|
+search(node[:mysql][:users_databag], "server:#{server_fqdn}").each do |user|
   Chef::Log.info("Configuring MySQL user #{user['username']}")
   # User should be created with multiple grants
   if user['databases']
